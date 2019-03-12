@@ -1,0 +1,23 @@
+{
+  "name": "aframe-canvas-text",
+  "version": "0.0.1",
+  "description": "A component renders text from generated canvas for A-Frame.",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shang-huang/aframe-canvas-text.git"
+  },
+  "author": "Shang Huang <shang.cih.huang@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shang-huang/aframe-canvas-text/issues"
+  },
+  "homepage": "https://github.com/shang-huang/aframe-canvas-text#readme",
+  "devDependencies": {
+    "rollup": "^1.6.0",
+    "rollup-plugin-babel-minify": "^8.0.0"
+  }
+}

@@ -1,0 +1,19 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Aframe-Canvas-Text Example</title>
+  <script src="https://cdn.jsdelivr.net/npm/aframe@0.9.0/dist/aframe-master.js"
+    integrity="sha256-QzJUGiNEwKCYLpIKBH1tFRDgcFXeo7lnNvfDdzBgVDI=" crossorigin="anonymous"></script>
+  <script src="../components/canvas-text.js"></script>
+</head>
+
+<body>
+  <a-scene>
+    <a-entity position="0 2 -2" canvas-text="size: 48; color:#0080FF; value:你好, HTML!\n你好, Aframe!"></a-entity>
+    <a-plane position="0 0 0" rotation="-90 0 0" width="30" height="30" color="#7BC8A4">
+    </a-plane>
+  </a-scene>
+</body>
+
+</html>
