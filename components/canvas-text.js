@@ -21,12 +21,20 @@ AFRAME.registerComponent("canvas-text", {
 
   update: function (oldData) {
     if (oldData != this.data) {
+      // get default font type & apply pixel ratio
       let _dpi = window.devicePixelRatio;
       let _fontType = window.getComputedStyle(document.body, null).getPropertyValue("font-family")
-      // get default font type
       let _font = this.data.size * _dpi + "px " + _fontType;
-      let _value = this.data.value.replace(/\\n/g, "\n");
-      let _sentences = _value.split("\n");
+      // support unicode character
+      let _uni_sentences = this.data.value.split("\\u");
+      let _uni_sentence = "";
+      for (var i = 1; i < _uni_sentences.length; i++) {
+        let _unicode = _uni_sentences[i].substring(0, 4);
+        let _sentence = String.fromCharCode(parseInt(_unicode, 16)) + _uni_sentences[i].substring(4, _uni_sentences[i].length);
+        _uni_sentence += _sentence;
+      }
+      let _newline_sentence = _uni_sentences[0] + _uni_sentence.replace(/\\n/g, "\n");
+      let _sentences = _newline_sentence.split("\n");
       // get text area size & height of each lines
       let _tempTextAreaEl = document.createElement("div");
       _tempTextAreaEl.style.display = "inline-block";
