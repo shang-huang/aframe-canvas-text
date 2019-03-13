@@ -1,10 +1,11 @@
 {
   "name": "aframe-canvas-text",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A component renders text from generated canvas for A-Frame.",
-  "main": "index.js",
+  "main": "./components/canvas-text.js",
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "eslint": "eslint components/*.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/shang-huang/aframe-canvas-text#readme",
   "devDependencies": {
+    "eslint": "^5.15.1",
     "rollup": "^1.6.0",
     "rollup-plugin-babel-minify": "^8.0.0"
   }
