@@ -1,6 +1,6 @@
 {
   "name": "aframe-canvas-text",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A component renders text from generated canvas for A-Frame.",
   "main": "./components/canvas-text.js",
   "scripts": {
