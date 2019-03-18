@@ -1,8 +1,12 @@
-import minify from "rollup-plugin-babel-minify";
+import { terser } from "rollup-plugin-terser";
 
 export default {
   input: "components/canvas-text.js",
-  plugins: [minify({ comments: false })],
+  plugins: [
+    terser({
+      compress:
+        { drop_console: true }
+    })],
   output: {
     file: "dist/canvas-text.min.js",
     format: 'iife'

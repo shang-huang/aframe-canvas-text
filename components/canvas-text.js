@@ -33,13 +33,23 @@ AFRAME.registerComponent("canvas-text", {
       let _uni_sentences = this.data.value.split("\\u");
       let _uni_sentence = "";
       _uni_sentences.forEach((_sentence, index) => {
-        if (index > 0) {
-          let _unicode = _sentence.substring(0, 4);
-          _uni_sentence += String.fromCharCode(parseInt(_unicode, 16)) + _sentence.substring(4, _uni_sentences[index].length);
+        if (index === 0) {
+          _uni_sentence += _sentence;
+        } else {
+          let _unicodePlan1Plan2 = this.getUnicodeCharFromSentence(_sentence, 5);
+          if (/[\u{10000}-\u{2ffff}]/u.test(_unicodePlan1Plan2)) {
+            _uni_sentence += _unicodePlan1Plan2 + _sentence.substring(5, _uni_sentences[index].length);
+          } else {
+            let _unicodePlan0 = this.getUnicodeCharFromSentence(_sentence, 4);
+            if (/[\u{0000}-\u{ffff}]/u.test(_unicodePlan0)) {
+              _uni_sentence += _unicodePlan0 + _sentence.substring(4, _uni_sentences[index].length);
+            } else {
+              _uni_sentence += _sentence;
+            }
+          }
         }
       });
-      let _newline_sentence = _uni_sentences[0] + _uni_sentence;
-      let _sentences = _newline_sentence.replace(/\\n/g, "\n").split("\n");
+      let _sentences = _uni_sentence.replace(/\\n/g, "\n").split("\n");
       // get text area size & height of each lines
       let _tempTextAreaEl = document.createElement("div");
       _tempTextAreaEl.style.display = "inline-block";
@@ -102,5 +112,9 @@ AFRAME.registerComponent("canvas-text", {
 
   remove: function () {
     this.el.innerHTML = "";
+  },
+
+  getUnicodeCharFromSentence: function (sentence, digits) {
+    return String.fromCodePoint(parseInt(sentence.substring(0, digits), 16));
   }
 });
