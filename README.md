@@ -2,6 +2,15 @@
 
 A component renders text from generated canvas for [A-Frame](https://aframe.io).
 
+### Use with A-Frame Inspector
+[![Use with A-Frame Inspector](https://img.youtube.com/vi/pJUQwnTbm_U/0.jpg)](https://www.youtube.com/watch?v=pJUQwnTbm_U)
+
+### Usage
+
+1. CDN - [jsDelivr](https://www.jsdelivr.com/package/npm/aframe-canvas-text)
+2. Self-host - ```<script src="../components/canvas-text.min.js"></script> ```
+3. Node.js - ```npm install aframe-canvas-text```
+
 ### Properties
 
 ```html
