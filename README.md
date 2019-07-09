@@ -23,3 +23,4 @@ A component renders text from generated canvas for [A-Frame](https://aframe.io).
 | color    | Text color.                                               | black         |
 | value    | Text to be rendered, supports unicode text & newline(\n). | ''            |
 | align    | Multi-line text alignment (left, center, right).          | 'left'        |
+| side     | Side to render. (front, back, double).                    | 'front'       |
