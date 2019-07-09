@@ -3,6 +3,7 @@ AFRAME.registerComponent("canvas-text", {
     value: { type: "string" },
     size: { type: "int", default: 50 },
     color: { type: "color", default: "black" },
+    side: { type: "string", default: "front", oneOf: ["front", "back", "double"] },
     align: { type: "string", default: "left", oneOf: ["left", "center", "right"] }
   },
 
@@ -43,7 +44,7 @@ function draw(el, data, canvas) {
   let width = textAreaEl.offsetWidth;
   let height = textAreaEl.offsetHeight;
   drawCanvas(canvas, width, height, font, data.color, data.align, sentences, lineHeights);
-  drawEntity(el, canvas, width, height, dpi);
+  drawEntity(el, canvas, width, height, dpi, data.side);
   el.removeChild(textAreaEl);
 }
 
@@ -111,9 +112,9 @@ function drawCanvas(canvas, width, height, font, color, align, sentences, lineHe
   });
 }
 
-function drawEntity(el, canvas, width, height, dpi) {
+function drawEntity(el, canvas, width, height, dpi, side) {
   const ratio = 0.0075 / dpi;
-  // claer previous object
+  // clear previous object
   el.object3D.children.forEach(child => el.object3D.remove(child));
   // set canvas as NPOT texture
   // https://github.com/aframevr/aframe/blob/master/src/systems/material.js#L332
@@ -122,12 +123,24 @@ function drawEntity(el, canvas, width, height, dpi) {
   texture.wrapT = THREE.ClampToEdgeWrapping;
   texture.magFilter = THREE.LinearFilter;
   texture.minFilter = THREE.LinearFilter;
-  // set material to flat shading, transparent & render to double sides
+  // set material to flat shading, transparent
   let material = new THREE.MeshBasicMaterial({ map: texture });
   material.precision = "lowp";
   material.flatShading = true;
-  material.transparent = true;
-  material.side =  THREE.DoubleSide;
+  material.transparent = true; 
+  // https://stackoverflow.com/questions/35626424/three-js-transparency-model-texture-bug
+  // set render side(s)
+  switch (side) {
+    case "front":
+      material.side = THREE.FrontSide;
+      break;
+    case "back":
+      material.side = THREE.BackSide;
+      break;
+    case "double":
+      material.side = THREE.DoubleSide;
+      break;
+  }
   let geometry = new THREE.PlaneGeometry(width * ratio, height * ratio, 1, 1);
   let mesh = new THREE.Mesh(geometry, material);
   el.object3D.add(mesh);
